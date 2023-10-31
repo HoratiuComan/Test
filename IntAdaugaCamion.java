@@ -4,20 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
 
-public class IntAdaugaCamion extends JFrame implements ItemListener, ActionListener{
-
+public class IntAdaugaCamion extends JFrame implements ItemListener, ActionListener {
     JComboBox<String> comboMarca, comboModel;
-	JButton button1 = new JButton(); // crearea unu buton
+    JTextField txtPret;
+    JButton button1 = new JButton();
 
-	public static List<Masina> camioane = new ArrayList<>();
+    public static List<Masina> camioane = new ArrayList<>();
 
-    IntAdaugaCamion(){
+    IntAdaugaCamion() {
+        this.setTitle("Meniu Adaugare Camioane");
+        this.setLayout(new FlowLayout(100, 200, 50));
+        this.setSize(200, 100);
 
-        this.setTitle("Meniu Adaugare Camioane"); // setam titlu
-        this.setLayout(new FlowLayout(200, 300, 100));
-        this.setSize(300, 300); // setam dimensiunile
-
-        final String[] marci = {"Volvo", "MAN", "Scania", "Suzuki", "Honda"};
+        final String[] marci = {"Marca", "MAN", "Iveco", "Scania", "Mercedes-Benz"};
 
         comboMarca = new JComboBox<String>(marci);
         comboMarca.addItemListener(this);
@@ -28,75 +27,84 @@ public class IntAdaugaCamion extends JFrame implements ItemListener, ActionListe
         comboModel.setSelectedIndex(0);
         comboModel.setEnabled(false);
 
-        button1.setText("Adauga"); // da un nume butonului
-        button1.addActionListener(this); // executarea unei comenzi in urma apasarii butonului
+        txtPret = new JTextField(7);
+
+        button1.setText("Adauga");
+        button1.addActionListener(this);
 
         this.add(comboMarca);
         this.add(comboModel);
-		this.add(button1); // adauga butonul
+        this.add(new JLabel("Pret:"));
+        this.add(txtPret);
+        this.add(button1);
         this.pack();
-        this.setVisible(true); // face vizibila fereastra
+        this.setVisible(true);
     }
 
-
-	public void actionPerformed(ActionEvent e)
-    {
-		
-		List<Masina> camioane = new ArrayList<>();
+    public void actionPerformed(ActionEvent e) {
+        List<Masina> camioane = ListaVehicule.getVehicule();
 
         String Marca = comboMarca.getSelectedItem().toString();
-		String Model = comboModel.getSelectedItem().toString();
-		
-		camioane.add(new Masina(Marca, Model));
-		//camioane.add(new Masina("Porsche", "911"));
-		//camioane.add(new Masina("Tesla", "Model Y"));
+        String Model = comboModel.getSelectedItem().toString();
+        String PretStr = txtPret.getText();
 
-		for (int i = 0; i < camioane.size(); i++) {
-			Masina masina = camioane.get(i);
-			System.out.println(masina);
-		}
+        if (Marca.equals("Marca") || Model.equals("Model") || PretStr.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Selectati marca, modelul si introduceti pretul inainte de a adauga camionul", "Eroare", JOptionPane.ERROR_MESSAGE);
+        } else {
+            try {
+                float Pret = Float.parseFloat(PretStr);
+                camioane.add(new Masina(Marca, Model, Pret));
+                JOptionPane.showMessageDialog(this, "Camioanul a fost adăugată cu succes.", "Succes", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Introduceti un pret valid", "Eroare", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        for (int i = 0; i < camioane.size(); i++) {
+            Masina camion = camioane.get(i);
+            System.out.println(camion);
+        }
     }
-
-	public static List<Masina> getCamioane() {
-        	return camioane; 
+    public static List<Masina> getMasini() {
+        return camioane;
     }
 
     public void itemStateChanged(ItemEvent e) {
-
-        final String Volvo[] = { "Ninja", "gfd", "500", "ghjn", "gds" };
-		final String MAN[] = { "YZF", "600", "950", "hfg", "dfh"};
-		final String Scania[] = { "300", "R34", "aa", "fhgdc" };
-		final String Honda[] = {"CBR ", "Civic", "gfd", "sdgf"};
+        final String MAN[] = {"F 2000", "TGL", "TGS", "TGX", "TGM"};
+        final String Iveco[] = {"Stralis NP", "S-WAY", "Stralis X-WAY", "Trakker", "T-WAY"};
+        final String Scania[] = {"r450", "770s", "r500", "r620"};
+        final String MercedesBenz[] = {"eActros 600", "Actros", "Atego", "Econic"};
 
         if (e.getSource() == comboMarca) {
-			if (comboMarca.getSelectedItem().equals("Marca")) {
-				comboModel.setEnabled(false);
-			} else if (comboMarca.getSelectedItem().equals("Volvo")) {
-				comboModel.setEnabled(true);
-				comboModel.removeAllItems();
-				for (int i = 0; i < Volvo.length; i++) {
-					comboModel.addItem(Volvo[i]);
-				}
-			} else if (comboMarca.getSelectedItem().equals("MAN")) {
-				comboModel.setEnabled(true);
-				comboModel.removeAllItems();
-				for (int i = 0; i < MAN.length; i++) {
-					comboModel.removeItem(MAN[i]);
-					comboModel.addItem(MAN[i]);
-				}
-			} else if (comboMarca.getSelectedItem().equals("Scania")) {
-				comboModel.setEnabled(true);
-				comboModel.removeAllItems();
-				for (int i = 0; i < Scania.length; i++) {
-					comboModel.addItem(Scania[i]);
-				}
-			}else if (comboMarca.getSelectedItem().equals("Honda")) {
-				comboModel.setEnabled(true);
-				comboModel.removeAllItems();
-				for (int i = 0; i < Honda.length; i++) {
-					comboModel.addItem(Honda[i]);
-				}
-			}
-		}
-    }	
+            if (comboMarca.getSelectedItem().equals("Marca")) {
+                comboModel.setEnabled(false);
+            } else if (comboMarca.getSelectedItem().equals("MAN")) {
+                comboModel.setEnabled(true);
+                comboModel.removeAllItems();
+                for (int i = 0; i < MAN.length; i++) {
+                    comboModel.addItem(MAN[i]);
+                }
+            } else if (comboMarca.getSelectedItem().equals("Iveco")) {
+                comboModel.setEnabled(true);
+                comboModel.removeAllItems();
+                for (int i = 0; i < Iveco.length; i++) {
+                    comboModel.removeItem(Iveco[i]);
+                    comboModel.addItem(Iveco[i]);
+                }
+            } else if (comboMarca.getSelectedItem().equals("Scania")) {
+                comboModel.setEnabled(true);
+                comboModel.removeAllItems();
+                for (int i = 0; i < Scania.length; i++) {
+                    comboModel.addItem(Scania[i]);
+                }
+            } else if (comboMarca.getSelectedItem().equals("Mercedes-Benz")) {
+                comboModel.setEnabled(true);
+                comboModel.removeAllItems();
+                for (int i = 0; i < MercedesBenz.length; i++) {
+                    comboModel.addItem(MercedesBenz[i]);
+                }
+            }
+        }
+    }
 }

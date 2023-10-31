@@ -1,6 +1,6 @@
 public class IntCamion {
 
-    public IntCamion() 
+    public IntCamion()
     {
       new IntAdaugaCamion();
     }

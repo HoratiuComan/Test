@@ -1,36 +1,21 @@
-public class Camion {
-    
-    private String marca;
-    private String model;
-    private int an;
-    private float pret;
-    private float caiPutere;
+public class Camion extends Masina {
+    private int caiPutere;
 
-
-    public Camion(String marca, String model) {
-        this.setMarca(marca);
-        this.setModel(model);
+    public Camion(String marca, String model, int an, float pret, int caiPutere) {
+        super(marca, model, an, pret); // Apelați constructorul clasei părinte (Masina)
+        this.setCaiPutere(caiPutere);
     }
 
-    public String getMarca() {
-        return marca;
+    public int getCaiPutere() {
+        return caiPutere;
     }
 
-    public String getModel() {
-        return model;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-
-    public void setModel(String model) {
-        this.model = model;
+    public void setCaiPutere(int caiPutere) {
+        this.caiPutere = caiPutere;
     }
 
     @Override
     public String toString() {
-        return marca + " " + model ;
+        return super.toString() + " " + caiPutere; // Apelați metoda toString() a clasei părinte și adăugați caiPutere
     }
 }

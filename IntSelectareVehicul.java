@@ -35,7 +35,7 @@ public class IntSelectareVehicul extends JFrame implements ItemListener, ActionL
 
 	public void actionPerformed(ActionEvent e)
     {
-		
+
 		// int pt fiecare tip //
         if (comboTipVehicul.getSelectedItem().equals("Masina"))
         {
@@ -47,7 +47,7 @@ public class IntSelectareVehicul extends JFrame implements ItemListener, ActionL
         {
             new IntMotocicleta();
         }
-    
+
 
         if (comboTipVehicul.getSelectedItem().equals("Camion"))
         {

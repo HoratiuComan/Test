@@ -1,6 +1,6 @@
 public class IntMotocicleta {
 
-    public IntMotocicleta() 
+    public IntMotocicleta()
     {
       new IntAdaugaMotocicleta();
     }

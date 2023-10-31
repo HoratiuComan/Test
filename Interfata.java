@@ -15,33 +15,30 @@ public class Interfata extends JFrame implements ActionListener{
 
     Interfata(){
 
-
-        button1.setBounds(100,100,250,100); // setare dimensiuni
-        button1.setText("Introducere vehicul"); // da un nume butonului
-        button1.addActionListener(this); // executarea unei comenzi in urma apasarii butonului
-
-
-        button2.setBounds(100,250,250,100); // setare dimensiuni
-        button2.setText("Afisati masinile"); // da un nume butonului
-        button2.addActionListener(this); // executarea unei comenzi in urma apasarii butonului
+        button1.setBounds(100,100,250,100);
+        button1.setText("Introducere vehicul");
+        button1.addActionListener(this);
 
 
-        button3.setBounds(100,400,250,100); // setare dimensiuni
-        button3.setText("Afisati masinile"); // da un nume butonului
-        button3.addActionListener(this); // executarea unei comenzi in urma apasarii butonului
+        button2.setBounds(100,250,250,100);
+        button2.setText("Afisati masinile");
+        button2.addActionListener(this);
 
 
-        this.setTitle("Parc Auto Horatiu SRL"); // setam titlu
-        this.setLayout(null); 
-        this.setSize(500, 700); // setare dimensiunile 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // iesirea din program
+        button3.setBounds(100,400,250,100);
+        button3.setText("Vanzare masini");
+        button3.addActionListener(this);
 
 
+        this.setTitle("Parc Auto SRL");
+        this.setLayout(null);
+        this.setSize(500, 700);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.add(button1); // adauga butonul
-        this.add(button2); // adauga butonul
+        this.add(button1);
+        this.add(button2);
         this.add(button3);
-        this.setVisible(true); // face vizibila fereastra
+        this.setVisible(true);
     }
 
 
@@ -53,17 +50,14 @@ public class Interfata extends JFrame implements ActionListener{
 
         if(e.getSource() == button2){
                     System.out.println("Buton apasat!");
-                     new IntVizualizareMasini();
-                 
-        }
-        
+                     new IntVizualizareVehicule();
 
-          if(e.getSource() == button3){
+        }
+
+        if(e.getSource() == button3){
                     System.out.println("Buton apasat!");
                      new IntVanzareVehicul();
-                 
+
         }
-        
-        
     }
 }
